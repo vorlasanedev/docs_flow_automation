@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Folder List View -->
+    <record id="view_docs_folder_tree" model="ir.ui.view">
+        <field name="name">docs.folder.tree</field>
+        <field name="model">docs.folder</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="document_count"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Folder Form View -->
+    <record id="view_docs_folder_form" model="ir.ui.view">
+        <field name="name">docs.folder.form</field>
+        <field name="model">docs.folder</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_documents" type="object" class="oe_stat_button" icon="fa-file-text-o">
+                            <field name="document_count" widget="statbutton" string="Documents"/>
+                        </button>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="department_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Folder Action -->
+    <record id="action_docs_folder" model="ir.actions.act_window">
+        <field name="name">Folders</field>
+        <field name="res_model">docs.folder</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

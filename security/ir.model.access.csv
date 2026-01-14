@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_docs_document_admin,docs.document.admin,model_docs_document,base.group_system,1,1,1,1
+access_docs_document_user,docs.document.user,model_docs_document,group_docs_user,1,1,0,0
+access_docs_document_reception,docs.document.reception,model_docs_document,group_docs_reception,1,1,1,0
+access_docs_document_head,docs.document.head,model_docs_document,group_docs_head,1,1,1,0
+access_docs_folder_admin,docs.folder.admin,model_docs_folder,base.group_system,1,1,1,1
+access_docs_folder_user,docs.folder.user,model_docs_folder,group_docs_user,1,0,0,0
+access_docs_folder_reception,docs.folder.reception,model_docs_folder,group_docs_reception,1,1,1,0
+access_docs_folder_head,docs.folder.head,model_docs_folder,group_docs_head,1,1,1,0

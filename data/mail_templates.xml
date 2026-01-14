@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Email Template: Document Assignment -->
+        <record id="email_template_document_assignment" model="mail.template">
+            <field name="name">Document Assignment Notification</field>
+            <field name="model_id" ref="model_docs_document"/>
+            <field name="subject">Document Assigned: {{ object.subject }}</field>
+            <field name="email_to">{{ object.assigned_user_id.email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <h2 style="color: #2c3e50;">Document Assignment Notification</h2>
+                    <p>Hello <strong>{{ object.assigned_user_id.name }}</strong>,</p>
+                    <p>You have been assigned a new document:</p>
+                    <table style="border-collapse: collapse; width: 100%; margin: 20px 0;">
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9; width: 30%;"><strong>Reference:</strong></td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.name }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Subject:</strong></td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.subject }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Type:</strong></td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.document_type }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Department:</strong></td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.department_id.name }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Received Date:</strong></td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.received_date }}</td>
+                        </tr>
+                    </table>
+                    <p style="margin-top: 20px;">
+                        <a href="/web#id={{ object.id }}&amp;model=docs.document&amp;view_type=form" 
+                           style="background-color: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                            View Document
+                        </a>
+                    </p>
+                    <p style="margin-top: 30px; color: #7f8c8d; font-size: 12px;">
+                        This is an automated notification from the Document Flow Automation system.
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <!-- Email Template: Document Status Change -->
+        <record id="email_template_document_status_change" model="mail.template">
+            <field name="name">Document Status Change Notification</field>
+            <field name="model_id" ref="model_docs_document"/>
+            <field name="subject">Document Status Updated: {{ object.subject }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <h2 style="color: #2c3e50;">Document Status Update</h2>
+                    <p>The status of document <strong>{{ object.name }}</strong> has been updated.</p>
+                    <table style="border-collapse: collapse; width: 100%; margin: 20px 0;">
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9; width: 30%;"><strong>Subject:</strong></td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.subject }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>New Status:</strong></td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">{{ object.state }}</td>
+                        </tr>
+                    </table>
+                    <p style="margin-top: 20px;">
+                        <a href="/web#id={{ object.id }}&amp;model=docs.document&amp;view_type=form" 
+                           style="background-color: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                            View Document
+                        </a>
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

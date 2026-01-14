@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main Menu -->
+    <menuitem id="menu_docs_root" 
+              name="Docs Automation" 
+              sequence="10"/>
+
+    <!-- Dashboard -->
+    <menuitem id="menu_docs_dashboard" 
+              name="Dashboard" 
+              parent="menu_docs_root" 
+              action="action_docs_document_all" 
+              sequence="1"/>
+
+    <!-- Incoming Documents -->
+    <menuitem id="menu_docs_incoming" 
+              name="Incoming Documents" 
+              parent="menu_docs_root" 
+              action="action_docs_document_incoming" 
+              sequence="2"/>
+
+    <!-- Outgoing Documents -->
+    <menuitem id="menu_docs_outgoing" 
+              name="Outgoing Documents" 
+              parent="menu_docs_root" 
+              action="action_docs_document_outgoing" 
+              sequence="3"/>
+
+    <!-- My Documents -->
+    <menuitem id="menu_docs_my" 
+              name="My Documents" 
+              parent="menu_docs_root" 
+              action="action_docs_document_my" 
+              sequence="4"/>
+
+    <!-- Configuration -->
+    <menuitem id="menu_docs_config" 
+              name="Configuration" 
+              parent="menu_docs_root" 
+              sequence="100"/>
+
+    <!-- Folders -->
+    <menuitem id="menu_docs_folders" 
+              name="Folders" 
+              parent="menu_docs_config" 
+              action="action_docs_folder" 
+              sequence="1"/>
+</odoo>
