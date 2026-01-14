@@ -41,10 +41,10 @@
         'data/mail_templates.xml',
         
         # Views
-        'views/docs_folder_views.xml',
-        'views/docs_document_views.xml',
         'views/res_users_cleanup.xml',
-
+        'views/docs_folder_views.xml',
+        'views/docs_origin_views.xml',
+        'views/docs_document_views.xml',
         'views/menus.xml',
     ],
     'demo': [],

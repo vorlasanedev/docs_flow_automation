@@ -8,7 +8,9 @@ class DocsDocument(models.Model):
     _order = 'create_date desc'
 
     # Basic Information
-    name = fields.Char(string='Reference', required=True, copy=False, default='New', tracking=True)
+    name = fields.Char(string='Incoming Number', required=True, copy=False, default='New', tracking=True)
+    doc_number = fields.Char(string='Document Number', tracking=True)
+    origin_id = fields.Many2one('docs.origin', string='From / Origin', tracking=True)
     subject = fields.Char(string='Subject', required=True, tracking=True)
     description = fields.Text(string='Description')
     attachment_ids = fields.Many2many(

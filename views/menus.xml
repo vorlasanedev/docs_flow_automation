@@ -45,4 +45,10 @@
               parent="menu_docs_config" 
               action="action_docs_folder" 
               sequence="1"/>
+
+    <menuitem id="menu_docs_origins" 
+              name="Origins" 
+              parent="menu_docs_config" 
+              action="action_docs_origin" 
+              sequence="2"/>
 </odoo>

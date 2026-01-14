@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Origin List View -->
+    <record id="view_docs_origin_tree" model="ir.ui.view">
+        <field name="name">docs.origin.tree</field>
+        <field name="model">docs.origin</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Origin Form View -->
+    <record id="view_docs_origin_form" model="ir.ui.view">
+        <field name="name">docs.origin.form</field>
+        <field name="model">docs.origin</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Finance Department, External Vendor"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="description" placeholder="Description or notes..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Origin Action -->
+    <record id="action_docs_origin" model="ir.actions.act_window">
+        <field name="name">Origins</field>
+        <field name="res_model">docs.origin</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
