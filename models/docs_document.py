@@ -67,6 +67,18 @@ class DocsDocument(models.Model):
         search='_search_is_assigned_to_me'
     )
 
+    @api.depends('assigned_user_id')
+    def _compute_is_assigned_to_me(self):
+        for doc in self:
+            doc.is_assigned_to_me = doc.assigned_user_id == self.env.user
+
+    def _search_is_assigned_to_me(self, operator, value):
+        if operator == '=' and value:
+            return [('assigned_user_id', '=', self.env.user.id)]
+        elif operator == '=' and not value:
+            return [('assigned_user_id', '!=', self.env.user.id)]
+        return []
+
     @api.model
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
