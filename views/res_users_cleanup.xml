@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 
+        This record overwrites the 'bad view' (view_users_form_docs_automation) 
+        that was manually created/leftover, which caused the layout breakage.
+        We set active="False" to neutralize it.
+    -->
+    <record id="view_users_form_docs_automation" model="ir.ui.view">
+        <field name="name">Cleanup Bad View</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="string">Users</attribute>
+            </xpath>
+        </field>
+        <field name="active" eval="False"/>
+    </record>
+</odoo>

@@ -24,6 +24,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="action_send_whatsapp" string="Send WhatsApp" type="object" class="oe_highlight" icon="fa-whatsapp" invisible="not contact_whatsapp"/>
                     <button name="action_assign" string="Assign" type="object" class="oe_highlight" invisible="state != 'draft' or not assigned_user_id"/>
                     <button name="action_complete" string="Mark as Completed" type="object" class="oe_highlight" invisible="state != 'in_progress'"/>
                     <button name="action_archive_document" string="Archive" type="object" invisible="state == 'archived'"/>

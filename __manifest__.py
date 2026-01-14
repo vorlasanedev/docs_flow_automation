@@ -43,7 +43,8 @@
         # Views
         'views/docs_folder_views.xml',
         'views/docs_document_views.xml',
-        'views/res_users_views.xml',
+        'views/res_users_cleanup.xml',
+
         'views/menus.xml',
     ],
     'demo': [],

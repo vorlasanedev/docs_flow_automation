@@ -71,19 +71,52 @@ class DocsDocument(models.Model):
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
             vals['name'] = self.env['ir.sequence'].next_by_code('docs.document') or 'New'
-        return super().create(vals)
+        
+        doc = super(DocsDocument, self).create(vals)
+        
+        # Notify Department Manager if department is set
+        if doc.department_id:
+            doc._notify_department_new_document(doc.department_id)
+            
+        return doc
 
-    @api.depends('assigned_user_id')
-    def _compute_is_assigned_to_me(self):
-        for doc in self:
-            doc.is_assigned_to_me = doc.assigned_user_id == self.env.user
+    def _notify_department_new_document(self, department_id):
+        """Notify department manager about new incoming document"""
+        if not department_id.manager_id:
+            return
 
-    def _search_is_assigned_to_me(self, operator, value):
-        if operator == '=' and value:
-            return [('assigned_user_id', '=', self.env.user.id)]
-        elif operator == '=' and not value:
-            return [('assigned_user_id', '!=', self.env.user.id)]
-        return []
+        manager = department_id.manager_id
+        self.activity_schedule(
+            'mail.mail_activity_data_todo',
+            user_id=manager.id,
+            summary=_('New Document for Department: %s') % self.subject,
+            note=_('A new document %s has been created for your department.') % self.name
+        )
+
+    def action_send_whatsapp(self):
+        """Open WhatsApp Web to send notification"""
+        self.ensure_one()
+        if not self.contact_whatsapp:
+            raise UserError(_("Please configure a WhatsApp number for this document."))
+            
+        # Basic cleaning of numbers (remove spaces, etc)
+        phone = ''.join(filter(str.isdigit, self.contact_whatsapp))
+        
+        message = _("Hello, there is an update regarding document %s: %s. Current status: %s") % (self.name, self.subject, self.state)
+        url = "https://web.whatsapp.com/send?phone=%s&text=%s" % (phone, message)
+        
+        # Log in chatter
+        self.message_post(
+            body=_('WhatsApp notification link generated for %s') % self.contact_whatsapp,
+            subject=_('WhatsApp Notification'),
+            message_type='notification'
+        )
+        
+        return {
+            'type': 'ir.actions.act_url',
+            'url': url,
+            'target': 'new',
+        }
 
     def action_assign(self):
         """Assign document to a user"""
@@ -146,10 +179,3 @@ class DocsDocument(models.Model):
         template = self.env.ref('docs_flow_automation.email_template_document_assignment', raise_if_not_found=False)
         if template and self.assigned_user_id:
             template.send_mail(self.id, force_send=True)
-
-    @api.model
-    def _notify_department_new_document(self, department_id):
-        """Notify department users about new incoming document"""
-        # This can be called from create method or automated action
-        # Send notification to all users in the department
-        pass
