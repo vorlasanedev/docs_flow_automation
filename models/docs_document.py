@@ -77,7 +77,29 @@ class DocsDocument(models.Model):
             return [('assigned_user_id', '=', self.env.user.id)]
         elif operator == '=' and not value:
             return [('assigned_user_id', '!=', self.env.user.id)]
+        elif operator == '=' and not value:
+            return [('assigned_user_id', '!=', self.env.user.id)]
         return []
+
+    @api.onchange('assigned_user_id')
+    def _onchange_assigned_user_id(self):
+        if not self.assigned_user_id:
+            return
+            
+        # Search for employee linked to the user (current company first)
+        employee = self.env['hr.employee'].search([
+            ('user_id', '=', self.assigned_user_id.id),
+            ('company_id', '=', self.env.company.id)
+        ], limit=1)
+        
+        # Fallback to any company
+        if not employee:
+            employee = self.env['hr.employee'].search([
+                ('user_id', '=', self.assigned_user_id.id)
+            ], limit=1)
+            
+        if employee and employee.department_id:
+            self.department_id = employee.department_id
 
     @api.model
     def create(self, vals):
